@@ -19,7 +19,6 @@ class MarketPlace extends Component {
     window.scrollTo(0, 0);
     this.setField = emitter.addListener('setField', (field) => {
       this.setState({ field: field });
-        console.log(this.state.field)
     });
   }
 

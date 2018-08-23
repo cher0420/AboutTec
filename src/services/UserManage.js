@@ -197,7 +197,6 @@ export function locationChange(target, token = null, path = null) {
     const host = window.location.host
     let random = Math.floor(Math.random() * 1000000)
         const callbackString = path?`https://${host}/${encodeURIComponent(path)}sid=${random}`:`https://${host}/?sid=${random}`
-    // const callbackString = path ? `http://localhost:3000/${encodeURIComponent(path)}?sid=${random}` : `http://localhost:3000/?sid=${random}`
     const logoutTips = token ? `&token=${token}` : ''
     const url = `${URL.SSOWebUrl}${target}?redirecturl=${callbackString}${logoutTips}`
     cookies.set(CONSTANTS.HighTalk_Market_Sid, random, { path: '/', maxAge: 2 * 60 * 60 })

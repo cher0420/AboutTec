@@ -23,12 +23,12 @@ class Banner extends Component {
 
   getSelectIndex = (fields) => {
     if (!this.props.defaultKey) {
-      this.setState({ select: fields[0].id });
+      this.setState({ select: fields[0].DID });
       emitter.emit('setField', fields[0]);
       return 0;
     }
     fields.forEach((field, index) => {
-      if (field.id === this.props.defaultKey) {
+      if (field.ID === this.props.defaultKey) {
         emitter.emit('setField', fields[index]);
       }
     });
@@ -38,16 +38,28 @@ class Banner extends Component {
         const options = {
             headers: {'Content-Type': 'application/json; charset=utf-8'},
         };
-        fetch(URL.getManageBaseUrl + "bots", options)
+        fetch(URL.getManageBaseUrl + "api/market/GetBotsListByDomian", options)
             .then(response => response.json())
             .then((res) => {
-                this.getSelectIndex(res);
-                this.setState({ fields: res });
+                const arr = []
+                res.Domain.forEach((v, index) => {
+                    const obj = {}
+                    obj.bots = v
+                    v.forEach((value, i) => {
+                        obj.DomainName = value.DomainName
+                        obj.DID = value.DID
+                        obj.DomainIcon = value.DomainIcon
+                    })
+                    arr.push(obj)
+                })
+                this.getSelectIndex(arr);
+                this.setState({ fields: arr });
+                emitter.emit('setField', this.state.fields[0]);
             });
     };
 
     fieldClick = (index, e) => {
-        this.setState({ select: this.state.fields[index].id });
+        this.setState({ select: this.state.fields[index].DID });
         emitter.emit('setField', this.state.fields[index]);
     };
 
@@ -55,7 +67,7 @@ class Banner extends Component {
     const fieldBoxs = [];
     this.state.fields.forEach((field, index) => {
       fieldBoxs.push(
-        <Col key={ index } md={6} xs={12} className={ this.state.select === field.id ? "active" : ""}
+        <Col key={ index } md={6} xs={12} className={ this.state.select === field.DID ? "active" : ""}
              onClick={ this.fieldClick.bind(this, index) }>
           <FieldBox field={ field }/>
         </Col>
