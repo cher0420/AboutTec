@@ -1,0 +1,29 @@
+.max-img {
+    width: 100%;
+}
+
+.MyTopImgP {
+    left: 0px;
+    top: 30%;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 99%;
+}
+
+.MyTopImg {
+    width: 35%;
+    position: absolute;
+    left: 15%;
+    top: 20%;
+    color: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 16;
+    -webkit-box-orient: vertical;
+}
+
+.article-content {
+    padding: 20px;
+}

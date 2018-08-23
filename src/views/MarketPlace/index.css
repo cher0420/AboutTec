@@ -1,0 +1,11 @@
+.market-bots-content {
+    padding: 60px 100px 120px 100px;
+    background-color: #f4f4f4;
+}
+
+@media only screen and (max-width: 767px){
+    .market-bots-content {
+        padding: 60px 10px 120px 10px;
+        background-color: #f4f4f4;
+    }
+}

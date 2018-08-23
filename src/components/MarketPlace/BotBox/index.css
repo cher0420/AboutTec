@@ -1,0 +1,129 @@
+.market-bot {
+    background-color: white;
+    box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.30);
+    border-radius: 6px;
+    padding: 29px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.bot-image {
+    background-color: #f5f5f5;
+    border: 1px solid #cccccc;
+    width:100%;
+    height:auto;
+}
+
+.bot-content {
+    height: 34vh;
+    min-height: 240px;
+    /*padding-left: 59px;*/
+    position: relative;
+}
+
+.bot-content > .top {
+    top: 0;
+}
+
+.bot-content > .bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+.top > h2 {
+    font-size: 1.5vw;
+    color: #333333;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+.top > p {
+    font-size: 1vw;
+    color: #666666;
+    letter-spacing: 0.7px;
+    line-height: 1.8vw;
+    text-align: left;
+}
+
+.experience-content {
+    width: 100%;
+    text-align: center;
+}
+
+
+.experience-content > img {
+    max-width: 100%;
+}
+
+.bot-options-button {
+    border: 1px solid #00c1de;
+    border-radius: 100px;
+    padding: 0 49px;
+    text-align: center;
+    line-height: 44px;
+    height: 44px;
+    color: #00c1de;
+    font-size: 16px;
+    margin-right: 28px;
+    outline:none;
+    cursor: pointer;
+    background-color: white;
+}
+
+.bot-detail-link {
+    border: 1px solid #00c1de;
+    border-radius: 100px;
+    color: #00c1de;
+    font-size: 16px;
+    margin-right: 28px;
+    background-color: white;
+    padding: 12px 49px;
+}
+@media only screen and (min-width: 1440px){
+    .bot-content{
+        padding-left: 32px;
+    }
+}
+@media only screen and (max-width: 1024px){
+    .bot-content {
+        padding-left: 0;
+        height:13vh;
+        padding-top: 2vh;
+    }
+}
+@media only screen and (max-width: 767px){
+    .bot-content {
+        padding-left: 0;
+    }
+    .bot-detail-link{
+        margin-right: 8px;
+        padding: 12px 15px;
+    }
+    .bot-options-button{
+        margin-top: 10px;
+        padding: 0 15px;
+        margin-right: 8px;
+    }
+    .bot-content > .top {
+        padding-top:4vw;
+    }
+}
+.bot-image-container{
+    height:34vh;
+
+}
+@media screen and (max-width: 1500px){
+    .bot-options-button{
+        padding:0 30px;
+        margin-right:8px;
+        font-size:14px;
+    }
+    .bot-detail-link{
+        padding:12px 30px;
+        margin-right:8px;
+        font-size:14px;
+    }
+}
+
+
+

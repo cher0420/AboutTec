@@ -1,0 +1,90 @@
+.navbar {
+    border-bottom: 1px solid #ccc;
+    z-index: 5;
+    text-align: center;
+}
+
+.navbar-icon {
+    padding-left: 20px;
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+    overflow: hidden;
+    float: left;
+}
+
+.navbar-icon > a {
+    color: white;
+    text-decoration:none;
+}
+
+.navbar-icon > a:active {
+    text-decoration:none;
+}
+
+.navbar-right {
+    float: right;
+}
+
+.navbar-right > a {
+    float: right;
+    text-decoration:none;
+}
+
+.navbar-right > div {
+    float: right;
+}
+
+.navbar-box {
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    min-width: 120px;
+    font-size: 15px;
+    color: #fff;
+}
+
+.navbar-box > i {
+    margin-left: 10px;
+}
+
+.navbar-blue-button {
+    background: #00c1de;
+}
+
+.navbar-transparent-button {
+    background: rgba(18, 14, 51, 0.30);
+}
+
+.navbar-menu {
+    display: inline-block;
+    height: 60px;
+    padding-top: 7px;
+}
+
+.navbar-menu > .ant-menu-horizontal {
+    background: none;
+    border: 0;
+    color: white;
+    display: inline-block;
+}
+
+.navbar-menu > .ant-menu-horizontal > .ant-menu-item > a{
+    color: white;
+}
+
+@media screen and (min-width: 992px) {
+    .ant-menu {
+        font-size: 1vw !important;
+    }
+
+    .navbar-icon {
+        font-size: 1.5vw;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .navbar-menu {
+        width: 100%;
+    }
+}

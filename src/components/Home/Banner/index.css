@@ -1,0 +1,96 @@
+.home-banner {
+    margin-top: -61px;
+    height: 100vh;
+    background: url("../../../img/banner.jpg") left top no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+}
+
+.home-banner-slogan {
+    position:absolute;
+    top: 35vh;
+    left: 120px;
+    color: white;
+}
+
+.home-banner-slogan > h1 {
+    font-size: 36px;
+    line-height: 48px;
+    color: white;
+}
+
+.home-banner-slogan > p {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.home-banner-slogan > .experience {
+    font-size: 16px;
+    border-radius: 0;
+    border: 1px solid #fff;
+    padding: 0 30px;
+    height: 43px;
+    line-height: 43px;
+    display: inline-block;
+    text-align: center;
+    margin-top: 30px;
+    color: rgb(255, 255, 255);
+}
+
+.home-banner-slogan > .experience:hover {
+    border: 0;
+    background: #e8e8e8;
+    color: #333333;
+}
+
+@media screen and (max-width: 767px){
+    .home-banner-slogan {
+        left: 20px;
+        padding-right:20px;
+    }
+
+    .home-banner {
+        margin-top: -121px;
+    }
+}
+@media screen and (min-width: 992px){
+    .home-banner-slogan > h1 {
+        font-size: 2.5vw;
+        line-height: 3.5vw;
+    }
+
+    .home-banner-slogan > p {
+        font-size: 1.5vw;
+        line-height: 2vw;
+    }
+}
+@media screen and (max-width: 1920px){
+    .home-banner{
+        background-size:1920px 100%;
+    }
+}
+@media screen and (max-width: 1680px){
+    .home-banner{
+        background-size:1680px 100%;
+    }
+}
+@media screen and (max-width: 1440px){
+    .home-banner{
+        background-size:1440px 100%;
+    }
+}
+@media screen and (max-width: 1280px){
+    .home-banner{
+        background-size:1280px 100%;
+    }
+}
+@media screen and (max-width: 670px){
+    .home-banner{
+        background-size:1280px 100%;
+    }
+}
+
+
+
+
+

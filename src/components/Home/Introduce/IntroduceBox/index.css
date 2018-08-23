@@ -1,0 +1,46 @@
+.introduce-box {
+    width: 80%;
+    padding: 30px 0;
+    height: 18vh;
+    min-height:120px;
+    -moz-transition: all 1s ease 0s;
+    transition: all 1s ease 0s;
+}
+
+.introduce-box:hover {
+    background: #00c1de;
+    width: 100%;
+}
+
+.introduce-box > img {
+    float: left;
+    height: 100%;
+    max-height:82px;
+}
+
+.introduce-box > .right {
+    width: 60%;
+    height:100%;
+    float: right;
+}
+
+.right > h3 {
+    font-size: 22px;
+    color: #333333;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+.right > p {
+    color: #666666;
+    letter-spacing: 0.7px;
+    text-align: left;
+}
+@media(max-width: 767px){
+    .introduce-box{
+        padding:30px 20px;
+    }
+    .introduce-box > .right{
+        width: 70%;
+    }
+}

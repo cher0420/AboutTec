@@ -1,0 +1,28 @@
+.field-box-content {
+    text-align: center;
+    color: white;
+    padding: 30px 20px;
+    display: inline-block;
+    width: 100%;
+    -moz-transition: all 1.5s ease 0s;
+    transition: all 1.5s ease 0s;
+    cursor: pointer;
+}
+
+.field-box-content:hover {
+    background-color: #00c1de;
+}
+
+.field-box-content > img {
+    float: left;
+    width: 40px;
+    height: 40px;
+}
+
+.field-box-content > p {
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+    padding: 5px 25px;
+}
+

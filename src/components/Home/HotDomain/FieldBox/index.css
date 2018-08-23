@@ -1,0 +1,113 @@
+.field-box {
+    position:relative;
+    min-width:131px;
+    min-height:131px;
+    max-width: 100%;
+    overflow:hidden;
+    border-radius: 6px;
+}
+
+.field-box figure {
+    width: 100%;
+    height: 100%;
+    padding:0;
+    position:relative;
+}
+
+.field-box figure .show {
+    display:block;
+    position:relative;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+    padding: 28% 0;
+}
+
+.field-box figure img {
+    /*height: 8.4vh;*/
+    height:auto;
+    width: 22%;
+}
+
+.field-box figure .description {
+    display:block;
+    position:absolute;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+}
+
+.field-box figure h2 {
+    color:#fff;
+    font-size: 1.5vw;
+    text-align:center;
+}
+
+.description > h2 {
+    margin-bottom: 1.8vw;
+}
+
+.field-box figure p {
+    display:block;
+    font-size:12px;
+    line-height:18px;
+    margin:0;
+    color:#fff;
+    text-align:left
+}
+
+.field-box figure .description {
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    padding:53px 0;
+    background-color:rgba(26,76,110,0.5);
+    text-align:center;
+    backface-visibility:hidden;
+    -webkit-transform:rotateY(-180deg);
+    -moz-transform:rotateY(-180deg);
+    transform:rotateY(-180deg);
+    -webkit-transition:all .5s;
+    -moz-transition:all .5s;
+    transition:all .5s
+}
+
+.field-box figure .show {
+    backface-visibility:hidden;
+    -webkit-transition:all .5s;
+    -moz-transition:all .5s;
+    transition:all .5s
+}
+
+.field-box figure:hover .show,figure.hover .show {
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg);
+    transform:rotateY(180deg)
+}
+.field-box figure:hover .description,figure.hover .description {
+    -webkit-transform:rotateY(0);
+    -moz-transform:rotateY(0);
+    transform:rotateY(0);
+}
+
+.line {
+    display:block;
+    background-color: white;
+    border-radius: 100px;
+    width: 15%;
+    height: 3px;
+    margin: 10px auto;
+}
+
+.field-box-link {
+    font-size: 1vw;
+    color: white;
+    letter-spacing: 1px;
+    line-height: 1.8vw;
+    padding: 7px 20px;
+    border-radius: 100px;
+    background-image: linear-gradient(-123deg, #1d5fdd 2%, #15b7e4 52%, #31ccc2 100%);
+}

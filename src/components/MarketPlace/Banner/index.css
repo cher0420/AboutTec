@@ -1,0 +1,69 @@
+
+.market-banner {
+    margin-top: -61px;
+    height: 600px;
+    background: url("../../../img/market/banner.jpg") no-repeat;
+    background-size: 100% 600px;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.market-banner > .content {
+    position:absolute;
+    top: 200px;
+    left: 120px;
+    width: 480px;
+    color: white;
+}
+
+.content > h1 {
+    font-size: 36px;
+    line-height: 48px;
+    color: white;
+}
+
+.content > p {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.market-banner > .bottom {
+    background: rgba(0, 0, 0, 0.50);
+    position:absolute;
+    white-space: nowrap;
+    overflow-x: auto;
+    bottom:0;
+    width: 100%;
+    padding: 0 200px;
+}
+
+.active {
+    background-color: #00c1de;
+}
+
+
+@media screen and (max-width: 1920px){
+    .market-banner{
+        background-size:1920px 600px;
+    }
+}
+@media screen and (max-width: 1440px){
+    .market-banner{
+        background-size:1440px 600px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .market-banner > .bottom {
+        padding: 0 20px;
+    }
+    .market-banner>.content{
+        width:auto;
+        left:22px;
+    }
+    .market-banner{
+        margin-top: -121px;
+        height: 660px;
+        background-size: 200% 660px;
+        position: relative;
+    }
+}

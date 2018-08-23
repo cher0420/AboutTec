@@ -1,0 +1,81 @@
+.hot-domain {
+    height: calc(100vh - 133px);
+    background: url("../../../img/hot_domian_bg.jpg") no-repeat center;
+    background-size: 100% 100%;
+    padding: 0 150px;
+    min-height:534px;
+}
+
+.hot-domain > h1 {
+    font-size: 20px;
+    color: white;
+    letter-spacing: 0.75px;
+    text-align: center;
+    line-height: 20px;
+    padding: 8vh 0;
+}
+
+.hot-domain-field {
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom:16px;
+}
+
+@media (max-width: 970px) {
+    .market-banner > .bottom{
+        padding:0;
+    }
+    .market-bots-content{
+        padding: 60px 5px 120px 5px;
+    }
+    .bot-image{
+        height: auto;
+        width:100%;
+    }
+    .top > p{
+        width:100%;
+        line-height: 3.5vw;
+    }
+    .bot-content > .bottom{
+        bottom:auto;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hot-domain {
+        padding: 0px 13%;
+    }
+
+    .hot-domain > h1 {
+        margin-bottom: 10px;
+        padding: 5vh 0;
+    }
+}
+@media screen and (min-width:960px) and (max-width:1200px){
+    .hot-domain {
+        padding: 0px 19%;
+    }
+}
+@media screen and (min-width: 400px) and (max-width: 576px) {
+    .column-diff{
+        padding: 0 5%;
+    }
+    .hot-domain > h1{
+        padding: 5vh 0 3vh 0;
+    }
+}
+@media screen and (min-width: 570px) and (max-width: 770px) {
+    .column-diff{
+        padding: 0 17%;
+    }
+}
+@media screen and (min-width: 770px) and (max-width: 1200px) {
+    .column-diff{
+        padding: 0 26%;
+    }
+}
+@media (min-width: 1600px){
+    .column-diff{
+        padding: 0 10%;
+    }
+}

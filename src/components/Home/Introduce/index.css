@@ -1,0 +1,53 @@
+.introduce {
+    background: #e8e8e8;
+    height: 100vh;
+    min-height:667px;
+    position: relative;
+}
+
+.introduce > img {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 85%;
+}
+
+.introduce > .content {
+    width: 35%;
+    height: 70%;
+    position: absolute;
+    right: 10%;
+    top: 20%;
+}
+@media only screen and (max-width: 1024px){
+    .introduce > img {
+        width: 0;
+    }
+    .introduce > .content{
+        width:100%;
+        position: absolute;
+        right: 0;
+        top: 10vh;
+    }
+    .introduce-box > .right{
+        width: 48vw;
+    }
+    .introduce-box{
+        padding:5vh 0 5vh 15%;
+    }
+}
+@media only screen and (max-width: 767px){
+    .introduce > img {
+        width: 0;
+    }
+    .introduce > .content{
+        width:100%;
+        position: absolute;
+        right: 0;
+        top: 10vh;
+    }
+    .introduce-box{
+        padding:5vh 0 5vh 5%;
+    }
+}
+

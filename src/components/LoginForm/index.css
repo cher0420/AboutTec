@@ -1,0 +1,31 @@
+.login-form {
+    position: absolute;
+    right: 15vw;
+    top: 18vh;
+    background: #f4f4f4;
+    width: 440px;
+    box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.30);
+    border-radius:6px;
+    -moz-border-radius:6px;
+    padding: 20px;
+    margin-top: 68px;
+    text-align: center;
+}
+
+.login-title {
+    margin: 20px 0 40px 0;
+    font-size: 24px;
+    color: #333333;
+    letter-spacing: 1.2px;
+    line-height: 24px;
+}
+
+@media only screen and (max-width: 767px) {
+    .login-form {
+        left: 0;
+        right: 0;
+        top: 125px;
+        margin: 0 auto;
+        max-width: 90%;
+    }
+}
