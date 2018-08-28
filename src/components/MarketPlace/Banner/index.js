@@ -50,6 +50,9 @@ class Banner extends Component {
                         obj.DID = value.DID
                         obj.DomainIcon = value.DomainIcon
                     })
+                    if(!obj.bots[0].ID){
+                        obj.bots = undefined
+                    }
                     arr.push(obj)
                 })
                 this.getSelectIndex(arr);
