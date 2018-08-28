@@ -28,7 +28,7 @@ class Banner extends Component {
       return 0;
     }
     fields.forEach((field, index) => {
-      if (field.ID === this.props.defaultKey) {
+      if (field.DID === this.props.defaultKey) {
         emitter.emit('setField', fields[index]);
       }
     });
@@ -55,9 +55,8 @@ class Banner extends Component {
                     }
                     arr.push(obj)
                 })
-                this.getSelectIndex(arr);
                 this.setState({ fields: arr });
-                emitter.emit('setField', this.state.fields[0]);
+                this.getSelectIndex(arr);
             });
     };
 

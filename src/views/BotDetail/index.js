@@ -146,7 +146,7 @@ class BotDetail extends Component {
       okText: '关闭',
       content: (
         <div className="experience-content">
-          <img src={ this.state.bot.otQRCode } alt=""/>
+          <img src={ this.state.bot.BotQRCode } alt=""/>
         </div>
       ),
     });
@@ -162,9 +162,9 @@ class BotDetail extends Component {
         s = s.replace(/&quot;/g, '"')
         return s
     }
-  componentWillUnmount() {
-    emitter.emit("setNarBackground", 'none');
-  }
+  // componentWillUnmount() {
+  //   emitter.emit("setNarBackground", 'none');
+  // }
 
   render() {
     const image = this.state.bot && <img src={ this.state.bot.BotImage } alt=""/>;

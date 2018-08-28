@@ -34,7 +34,6 @@ class HotDomain extends Component {
     });
     return(
       <main className="hot-domain" style={{height:this.state.hotFields.length>4?'auto':'calc(100vh - 133px)'}}>
-          {console.log(this.state.hotFields)}
         <h1>热门领域</h1>
         <Row gutter={ 16 } className="column-diff">
           { fieldBoxs }
