@@ -24,11 +24,15 @@
     text-align: center;
     padding: 28% 0;
 }
-
+.market-img-box{
+    /*height: 10%;*/
+    width: 22%;
+    margin: 0 auto;
+}
 .field-box figure img {
     /*height: 8.4vh;*/
     height:auto;
-    width: 22%;
+    width: 100%;
 }
 
 .field-box figure .description {
@@ -43,6 +47,9 @@
     color:#fff;
     font-size: 1.5vw;
     text-align:center;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .description > h2 {

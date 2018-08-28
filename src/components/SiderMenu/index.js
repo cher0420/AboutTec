@@ -2,6 +2,8 @@ import React from 'react';
 import { Menu, Icon } from 'antd';
 import URL from "../BaseUrl";
 import { Link } from 'react-router-dom';
+import {Ajax} from "../../util/request";
+
 const MenuItemGroup = Menu.ItemGroup;
 
 class SiderMenu extends React.Component {
@@ -11,18 +13,33 @@ class SiderMenu extends React.Component {
 
   componentDidMount() {
     //获取菜单数据
-    const options = {
-      headers: {'Content-Type': 'application/json; charset=utf-8'},
-    };
-    fetch(URL.getManageBaseUrl + "api/market/GetMenus", options)
-      .then((response) => {
-        return response.json()
-    })
-      .then((res) => {
-        this.setState({
-          menus: res.Menus
-        });
-      });
+
+    const that = this
+      const url = URL.getManageBaseUrl + "api/market/GetMenus"
+      Ajax({
+          url:url,
+          type:'get',
+          headers:{'Content-Type': 'application/json; charset=utf-8'},
+          success: function (response) {
+              const res = JSON.parse(response)
+                  that.setState({
+                    menus: res.Menus
+                  });
+
+          }
+      })
+      // const options = {
+      //     headers: {'Content-Type': 'application/json; charset=utf-8'},
+      // };
+    // fetch(URL.getManageBaseUrl + "api/market/GetMenus", options)
+    //   .then((response) => {
+    //     return response.json()
+    // })
+    //   .then((res) => {
+    //     this.setState({
+    //       menus: res.Menus
+    //     });
+    //   });
   };
 
   renderMenuItem =

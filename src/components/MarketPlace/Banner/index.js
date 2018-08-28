@@ -7,6 +7,7 @@ import FieldBox from './FieldBox';
 import './index.css';
 import URL from "../../BaseUrl";
 import emitter from '../../../services/events';
+import {Ajax} from '../../../util/request'
 
 class Banner extends Component {
   constructor(props) {
@@ -35,27 +36,59 @@ class Banner extends Component {
   };
 
     getFields = () => {
-        const options = {
-            headers: {'Content-Type': 'application/json; charset=utf-8'},
-        };
-        fetch(URL.getManageBaseUrl + "api/market/GetBotsListByDomian", options)
-            .then(response => response.json())
-            .then((res) => {
-                const arr = []
-                res.Domain.forEach((v, index) => {
-                    const obj = {}
-                    obj.bots = v
-                    v.forEach((value, i) => {
-                        obj.DomainName = value.DomainName
-                        obj.DID = value.DID
-                        obj.DomainIcon = value.DomainIcon
-                    })
-                    arr.push(obj)
-                })
-                this.getSelectIndex(arr);
-                this.setState({ fields: arr });
-                emitter.emit('setField', this.state.fields[0]);
-            });
+        const that = this
+        const url = URL.getManageBaseUrl + "api/market/GetBotsListByDomian"
+
+        Ajax({
+            headers:{'Content-Type': 'application/json; charset=utf-8'},
+            url: url,
+            type:'get',
+            success: function (response) {
+                const res = JSON.parse(response)
+                        const arr = []
+                        res.Domain.forEach((v, index) => {
+                            const obj = {}
+                            obj.bots = v
+                            v.forEach((value, i) => {
+                                    obj.DomainName = value.DomainName
+                                    obj.DID = value.DID
+                                    obj.DomainIcon = value.DomainIcon
+                            })
+                            if(!obj.bots[0].ID){
+                                obj.bots = undefined
+                            }
+                            arr.push(obj)
+                        })
+                that.getSelectIndex(arr);
+                that.setState({ fields: arr });
+                emitter.emit('setField', that.state.fields[0]);
+
+            }
+        })
+        // const options = {
+        //     headers: {'Content-Type': 'application/json; charset=utf-8'},
+        // };
+        // fetch(URL.getManageBaseUrl + "api/market/GetBotsListByDomian", options)
+        //     .then(response => response.json())
+        //     .then((res) => {
+        //         const arr = []
+        //         res.Domain.forEach((v, index) => {
+        //             const obj = {}
+        //             obj.bots = v
+        //             v.forEach((value, i) => {
+        //                     obj.DomainName = value.DomainName
+        //                     obj.DID = value.DID
+        //                     obj.DomainIcon = value.DomainIcon
+        //             })
+        //             if(!obj.bots[0].ID){
+        //                 obj.bots = undefined
+        //             }
+        //             arr.push(obj)
+        //         })
+        //         this.getSelectIndex(arr);
+        //         this.setState({ fields: arr });
+        //         emitter.emit('setField', this.state.fields[0]);
+        //     });
     };
 
     fieldClick = (index, e) => {

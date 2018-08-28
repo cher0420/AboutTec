@@ -9,6 +9,8 @@ import './index.css';
 import '../../style/quill.bubble.css'
 import '../../style/quill.core.css'
 import '../../style/quill.snow.css'
+import ExpectView from '../../views/ExpectView'
+import {Ajax} from '../../util/request'
 
 class ArticleContent extends Component {
   static defaultProps = {};
@@ -16,22 +18,36 @@ class ArticleContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      siteContent: ""
+      siteContent: "",
+      ExpectStatus:false
     }
   }
-
+// 为了适应IE使用Ajax请求
   getContent = (id) => {
-    const options = {
-      headers: {'Content-Type': 'application/json; charset=utf-8'},
-    };
+      const that = this
     const contentId = id;
-    fetch(URL.getManageBaseUrl + "api/ContentManagement/GetContent?id=" + contentId, options)
-      .then(response => response.json())
-      .then((res) => {
-        this.setState({
-          siteContent: res.ContentManagement.Content
-        });
-      });
+    const url = URL.getManageBaseUrl + "api/market/GetContent"
+      Ajax({
+          type: 'get',
+          url:url,
+          data:{
+              id:contentId
+          },
+          async:true,
+          success:function(response){
+              const res = JSON.parse(response)
+              if(res.Status){
+                        that.setState({
+                            siteContent: res.ContentManagement.Content,
+                            ExpectStatus: false
+                        });
+                    }else{
+                        that.setState({
+                            ExpectStatus:true
+                        })
+                    }
+          }
+      })
   };
 
   componentDidMount() {
@@ -43,10 +59,6 @@ class ArticleContent extends Component {
     this.setState({siteContent: ""});
     this.getContent(nextProps.match.params.id);
   };
-
-  componentWillUnmount() {
-    emitter.emit("setNarBackground", 'none');
-  }
    htmlDecodeByRegExp =  (str) => {
         let s = ''
         if (str.length === 0) return ''
@@ -61,11 +73,18 @@ class ArticleContent extends Component {
   render() {
     return(
       <main>
-        <Row className="article-content ql-editor">
-          <Col sm={{ span: 24 }} md={{ offset: 5, span: 14 }}>
-            <div dangerouslySetInnerHTML={{__html:this.htmlDecodeByRegExp(this.state.siteContent)}}></div>
-          </Col>
-        </Row>
+          {
+              this.state.siteContent&&
+              <Row className="article-content ql-editor">
+                  <Col sm={{ span: 24 }} md={{ offset: 5, span: 14 }}>
+                      <div dangerouslySetInnerHTML={{__html:this.htmlDecodeByRegExp(this.state.siteContent)}}></div>
+                  </Col>
+              </Row>
+          }
+          {
+              this.state.ExpectStatus&&
+              <ExpectView/>
+          }
       </main>
     )
   }

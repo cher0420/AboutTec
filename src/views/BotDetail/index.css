@@ -12,7 +12,7 @@
     padding: 0 20px;
 }
 
-.bot-detail-title > img {
+.ql-editor .bot-detail-title > img {
     width: 50px;
     height: 50px;
     float: left;

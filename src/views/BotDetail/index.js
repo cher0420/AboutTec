@@ -11,6 +11,7 @@ import './index.css';
 import '../../style/quill.bubble.css'
 import '../../style/quill.core.css'
 import '../../style/quill.snow.css'
+import {Ajax} from '../../util/request'
 
 class BotDetail extends Component {
 
@@ -24,17 +25,23 @@ class BotDetail extends Component {
 
   componentDidMount() {
     emitter.emit("setNarBackground", '#0e2052');
-    const options = {
-      headers: {'Content-Type': 'application/json; charset=utf-8'},
-    };
+    const that = this
     const contentId = this.props.match.params.id;
-    fetch(URL.getManageBaseUrl + "api/BotInfo/GetBot?id=" + contentId, options)
-      .then(response => response.json())
-      .then((res) => {
-        this.setState({
-          bot: res.BotInfo
-        });
-      });
+    const url = URL.getManageBaseUrl + "api/BotInfo/GetBot"
+
+    Ajax({
+      type: 'get',
+        url:url,
+        data:{
+          id: contentId
+        },
+        success:function (response) {
+          const res = JSON.parse(response)
+            that.setState({
+                bot: res.BotInfo
+            });
+        }
+    })
   }
 
   getUser = () => {
@@ -67,38 +74,50 @@ class BotDetail extends Component {
     detail.ServicePlan = "";
     return detail;
   };
+  //
+  // addToCart = (e) => {
+  //   if (!this.getUser()) {
+  //     return;
+  //   }
+  //   fetch(URL.getManageBaseUrl + "/cart/add", {
+  //     method: 'POST',
+  //     headers: {
+  //       "Content-Type": "application/json; charset=UTF-8"
+  //     },
+  //     body: JSON.stringify(this.getResData())
+  //   }).then(response => {
+  //     emitter.emit('addCart');
+  //   });
+  // };
 
-  addToCart = (e) => {
-    if (!this.getUser()) {
-      return;
-    }
-    fetch(URL.getManageBaseUrl + "/cart/add", {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8"
-      },
-      body: JSON.stringify(this.getResData())
-    }).then(response => {
-      emitter.emit('addCart');
-    });
-  };
-
-  buy = (e) => {
-    if (!this.getUser()) {
-      return;
-    }
-    this.setState({loading: true});
-    fetch(URL.getManageBaseUrl + "/order/bot", {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8"
-      },
-      body: JSON.stringify(this.getResData())
-    }).then(response => response.json())
-      .then((res) => {
-        this.submitBill(res);
-      });
-  };
+  // buy = (e) => {
+  //   if (!this.getUser()) {
+  //     return;
+  //   }
+  //   const that = this
+  //     // const url = URL.getManageBaseUrl + "/order/bot"
+  //     // const data = JSON.stringify(this.getResData())
+  //     that.setState({loading: true});
+  //     // Ajax({
+  //     //     type: 'POST',
+  //     //     url:url,
+  //     //     data:data,
+  //     //     success:function (response) {
+  //     //         const res = JSON.parse(response)
+  //     //         console.log(res)
+  //     //     }
+  //     // })
+  //   fetch(URL.getManageBaseUrl + "/order/bot", {
+  //     method: 'POST',
+  //     headers: {
+  //       "Content-Type": "application/json; charset=UTF-8"
+  //     },
+  //     body: JSON.stringify(this.getResData())
+  //   }).then(response => response.json())
+  //     .then((res) => {
+  //       this.submitBill(res);
+  //     });
+  // };
 
   submitBill = (res) => {
     const user = this.getUser();
@@ -110,34 +129,60 @@ class BotDetail extends Component {
     data.Details = [];
     data.Details.push(this.getDetail(res.cart, res.orderId));
 
-    const options = {
-      method: 'POST',
-      headers: {
-        'Access-Token': user.Token,
-        'Content-Type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify(data)
-    };
-
+    // const options = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Access-Token': user.Token,
+    //     'Content-Type': 'application/json; charset=utf-8'
+    //   },
+    //   body: JSON.stringify(data)
+    // };
+    const that = this
     const url = URL.getAdminProtalBaseUrl + "/api/tenant/storetenantorder";
-    fetch(url, options)
-      .then(response => response.json())
-      .then((res) => {
-        if (res.Status === 1) {
-          Modal.confirm({
-            title: '购买成功',
-            content: '前往管理门户生成您的机器人？',
-            okText: '前往',
-            cancelText: '继续浏览',
-            onOk() { window.open(URL.getAdminPortalWebUrl + "?user=" + user.account); }
-          });
-        } else {
-          alert(res.ErrorCodes[0].ErrorMessage);
-          console.log('失败信息', res);
+    Ajax({
+        type: 'POST',
+        url:url,
+        headers: {
+            'Access-Token': user.Token,
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        data: data,
+        success: function (response) {
+          const res = JSON.parse(response)
+                if (res.Status === 1) {
+                  Modal.confirm({
+                    title: '购买成功',
+                    content: '前往管理门户生成您的机器人？',
+                    okText: '前往',
+                    cancelText: '继续浏览',
+                    onOk() { window.open(URL.getAdminPortalWebUrl + "?user=" + user.account); }
+                  });
+                } else {
+                  alert(res.ErrorCodes[0].ErrorMessage);
+                  console.log('失败信息', res);
+                }
+                emitter.emit('freshCount');
+            that.setState({loading: false});
         }
-        emitter.emit('freshCount');
-        this.setState({loading: false});
-      });
+    })
+    // fetch(url, options)
+    //   .then(response => response.json())
+    //   .then((res) => {
+    //     if (res.Status === 1) {
+    //       Modal.confirm({
+    //         title: '购买成功',
+    //         content: '前往管理门户生成您的机器人？',
+    //         okText: '前往',
+    //         cancelText: '继续浏览',
+    //         onOk() { window.open(URL.getAdminPortalWebUrl + "?user=" + user.account); }
+    //       });
+    //     } else {
+    //       alert(res.ErrorCodes[0].ErrorMessage);
+    //       console.log('失败信息', res);
+    //     }
+    //     emitter.emit('freshCount');
+    //     this.setState({loading: false});
+    //   });
   };
 
   experience = (e) => {
@@ -162,9 +207,9 @@ class BotDetail extends Component {
         s = s.replace(/&quot;/g, '"')
         return s
     }
-  componentWillUnmount() {
-    emitter.emit("setNarBackground", 'none');
-  }
+  // componentWillUnmount() {
+  //   emitter.emit("setNarBackground", 'none');
+  // }
 
   render() {
     const image = this.state.bot && <img src={ this.state.bot.BotImage } alt=""/>;

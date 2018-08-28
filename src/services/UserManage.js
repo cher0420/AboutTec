@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie';
 import URL from '../components/BaseUrl';
 import emitter from '../services/events';
 import * as CONSTANTS from '../constants/constants';
+import {Ajax} from '../util/request'
 
 const cookies = new Cookies();
 
@@ -39,6 +40,7 @@ export const getCookies = () => {
 
 //验证token
 export const authToken = (value) => {
+    const that= this
     const token = decodeURIComponent(value);
     if (!token) {
         console.log('没有用户信息')
@@ -47,31 +49,56 @@ export const authToken = (value) => {
     const data = {
         Token: token,
     };
+    const url = URL.SSOServerApi + "/api/Tenant/ValidateToken"
     const baseData = JSON.stringify(data)
-    fetch(URL.SSOServerApi + "/api/Tenant/ValidateToken", {
-        method: 'POST',
+    Ajax({
+        url:url,
+        type:'POST',
         headers: {
-            "Content-Type": "application/json; charset=utf-8",
-        },
-        body: baseData
-    }).then(response => response.json()).then((res) => {
-        if (res.Status) {
-            fetchUserInfo(token)
-            setTokenCookies(value)
-            cookies.remove(CONSTANTS.HighTalk_Market_Sid, { path: '/' })
-        } else {
-            // 清除cookies
-            clearCookies()
-            const stateObject = {};
-            const title = "index";
-            const newUrl = "/";
-            window.history.pushState(stateObject, title, newUrl);
-            return null;
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+        data:baseData,
+        success:function(response){
+            const res = JSON.parse(response)
+                if (res.Status) {
+                    fetchUserInfo(token)
+                    setTokenCookies(value)
+                    cookies.remove(CONSTANTS.HighTalk_Market_Sid, { path: '/' })
+                } else {
+                    // 清除cookies
+                    clearCookies()
+                    const stateObject = {};
+                    const title = "index";
+                    const newUrl = "/";
+                    window.history.pushState(stateObject, title, newUrl);
+                    return null;
+                }
         }
-    }).catch((error) => {
-        return null;
-        alert("网络或者服务器发生错误！");
-    });
+    })
+    // fetch(URL.SSOServerApi + "/api/Tenant/ValidateToken", {
+    //     method: 'POST',
+    //     headers: {
+    //         "Content-Type": "application/json; charset=utf-8",
+    //     },
+    //     body: baseData
+    // }).then(response => response.json()).then((res) => {
+    //     if (res.Status) {
+    //         fetchUserInfo(token)
+    //         setTokenCookies(value)
+    //         cookies.remove(CONSTANTS.HighTalk_Market_Sid, { path: '/' })
+    //     } else {
+    //         // 清除cookies
+    //         clearCookies()
+    //         const stateObject = {};
+    //         const title = "index";
+    //         const newUrl = "/";
+    //         window.history.pushState(stateObject, title, newUrl);
+    //         return null;
+    //     }
+    // }).catch((error) => {
+    //     return null;
+    //     alert("网络或者服务器发生错误！");
+    // });
 };
 
 /**
@@ -80,19 +107,33 @@ export const authToken = (value) => {
  * @return String
  */
 export const fetchUserInfo = (token = null) => {
-    fetch(URL.SSOServerApi + "/api/Tenant/GetUserInfo", {
-        method: 'POST',
+    const that = this
+    const url = URL.SSOServerApi + "/api/Tenant/GetUserInfo"
+    Ajax({
+        url:url,
+        type:'POST',
         headers: {
-            "Content-Type": "application/json",
-            "Access-Token": token,
-        },
-        body: null
-    }).then(response => response.json()).then((res) => {
-        setUserInfo(res)
-    }).catch((error) => {
-        console.log('请求失败', error)
-        return null;
-    });
+                    "Content-Type": "application/json",
+                    "Access-Token": token,
+                },
+        success: function (response) {
+            const res = JSON.parse(response)
+                setUserInfo(res)
+        }
+    })
+    // fetch(URL.SSOServerApi + "/api/Tenant/GetUserInfo", {
+    //     method: 'POST',
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //         "Access-Token": token,
+    //     },
+    //     body: null
+    // }).then(response => response.json()).then((res) => {
+    //     setUserInfo(res)
+    // }).catch((error) => {
+    //     console.log('请求失败', error)
+    //     return null;
+    // });
 }
 
 /**

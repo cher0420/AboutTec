@@ -8,12 +8,16 @@ class FieldBox extends Component {
      <div className="field-box">
        <figure>
          <figcaption className="show" style={{ background: `url("${ this.props.field.DomainImage }") center no-repeat`,backgroundSize:'cover' }}>
-           <img src={ this.props.field.DomainIcon } alt="" />
+             <div className='market-img-box'>
+               <img src={ this.props.field.DomainIcon } alt="" />
+           </div>
            <h2>{ this.props.field.DomainName }</h2>
            <div className="line" />
          </figcaption>
          <figcaption className="description">
-           <img src={ this.props.field.DomainIcon } alt="" />
+             <div class='market-img-box'>
+                 <img src={ this.props.field.DomainIcon } alt="" />
+             </div>
            <h2>{ this.props.field.DomainName }</h2>
            <Link className="field-box-link" to={ "/marketplace/" + this.props.field.ID}>查看详情</Link>
          </figcaption>

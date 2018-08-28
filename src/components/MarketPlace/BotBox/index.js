@@ -8,6 +8,7 @@ import URL from "../../BaseUrl";
 import { getUserInfo, locationChange } from "../../../services/UserManage";
 import emitter from '../../../services/events';
 import './index.css';
+import {Ajax} from '../../../util/request'
 
 class BotBox extends Component {
   constructor(props) {
@@ -39,13 +40,13 @@ class BotBox extends Component {
     detail.TenantId = user.user.TenantId;
     detail.OrderNo = orderId;
     detail.BotNo = bot.botNo;
-    detail.BotTemplateCode = bot.templateCode;
-    detail.BotTemplateName = bot.botName;
-    detail.BotType = bot.botType;
-    detail.DeployModel = bot.deployModel;
-    detail.BotTemplateDomain = bot.domainName;
-    detail.BotTemplateDescription = bot.description;
-    detail.IsAutoCreate = bot.isAutoCreate;
+    detail.BotTemplateCode = bot.TemplateCode;
+    detail.BotTemplateName = bot.BotName;
+    detail.BotType = bot.BotType;
+    detail.DeployModel = bot.DeployModel;
+    detail.BotTemplateDomain = bot.DomainName;
+    detail.BotTemplateDescription = bot.Description;
+    detail.IsAutoCreate = bot.IsAutoCreate;
     detail.ServicePlan = "";
     return detail;
   };
@@ -65,21 +66,37 @@ class BotBox extends Component {
     if (!this.getUser()) {
       return;
     }
+    const that = this
+      const data = JSON.stringify(this.getResData())
+      const url = URL.getManageBaseUrl + "api/Order/GetOrderOneBot"
     this.setState({loading: true});
-    fetch(URL.getManageBaseUrl + "api/Order/GetOrderOneBot", {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8"
-      },
-      body: JSON.stringify(this.getResData())
-    }).then(response => response.json())
-      .then((res) => {
-        console.log(res)
-        this.submitBill(res);
-      });
+      Ajax({
+          type:'POST',
+          data:data,
+          url:url,
+          headers:{
+                  "Content-Type": "application/json; charset=UTF-8"
+                },
+          success:function (response) {
+            const res = JSON.parse(response)
+              that.submitBill(res);
+          }
+      })
+    // fetch(URL.getManageBaseUrl + "api/Order/GetOrderOneBot", {
+    //   method: 'POST',
+    //   headers: {
+    //     "Content-Type": "application/json; charset=UTF-8"
+    //   },
+    //   body: JSON.stringify(this.getResData())
+    // }).then(response => response.json())
+    //   .then((res) => {
+    //     console.log(res)
+    //     this.submitBill(res);
+    //   });
   };
 
   submitBill = (cartInfo) => {
+    const that = this
     const user = this.getUser();
     const data = {};
     const OrderInfo = {};
@@ -90,40 +107,65 @@ class BotBox extends Component {
     data.Details = [];
     cartInfo.Bot.botNo = cartInfo.BotNo;
     data.Details.push(this.getDetail(cartInfo.Bot, cartInfo.OrderId));
-    const options = {
-      method: 'POST',
-      headers: {
-        'Access-Token': decodeURIComponent(user.token),
-        'Content-Type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify(data)
-    };
 
     const url = URL.getAdminProtalBaseUrl + "/api/tenant/storetenantorder";
-    fetch(url, options)
-      .then(response => response.json())
-      .then((res) => {
-        if (res.Status === 1) {
-          Modal.confirm({
-            title: '申请成功',
-            content: '前往管理门户看看您的机器人吧？',
-            okText: '前往',
-            cancelText: '继续浏览',
-            onOk() { window.open(URL.getAdminPortalWebUrl); }
-          });
-        } else {
-            locationChange('/zh-cn/login/index',null,'marketplace?')
+    Ajax({
+        url:url,
+        type: 'POST',
+        headers: {
+            'Access-Token': decodeURIComponent(user.token),
+            'Content-Type': 'application/json; charset=utf-8'
+        },
+        data:JSON.stringify(data),
+        success: function (response) {
+          const res = JSON.parse(response)
+                if (res.Status) {
+                  Modal.confirm({
+                    title: '申请成功',
+                    content: '前往管理门户看看您的机器人吧？',
+                    okText: '前往',
+                    cancelText: '继续浏览',
+                    onOk() { window.open(URL.getAdminPortalWebUrl); }
+                  });
+                } else {
+                    locationChange('/zh-cn/login/index',null,'marketplace?')
+                }
+                emitter.emit('freshCount');
+                that.setState({loading: false});
         }
-        emitter.emit('freshCount');
-        this.setState({loading: false});
-      });
+    })
+      // const options = {
+      //   method: 'POST',
+      //   headers: {
+      //     'Access-Token': decodeURIComponent(user.token),
+      //     'Content-Type': 'application/json; charset=utf-8'
+      //   },
+      //   body: JSON.stringify(data)
+      // };
+    // fetch(url, options)
+    //   .then(response => response.json())
+    //   .then((res) => {
+    //     if (res.Status === 1) {
+    //       Modal.confirm({
+    //         title: '申请成功',
+    //         content: '前往管理门户看看您的机器人吧？',
+    //         okText: '前往',
+    //         cancelText: '继续浏览',
+    //         onOk() { window.open(URL.getAdminPortalWebUrl); }
+    //       });
+    //     } else {
+    //         locationChange('/zh-cn/login/index',null,'marketplace?')
+    //     }
+    //     emitter.emit('freshCount');
+    //     this.setState({loading: false});
+    //   });
   };
 
 
   render() {
         return(
             <Row className="market-bot">
-              <Col span = {8} md={8} xs={ 24 } className='bot-image-container' style={{background:`url(${this.props.bot.BotImage}) left top no-repeat`,backgroundSize:'cover'}}>
+                <Col span = {8} md={8} xs={ 24 } className='bot-image-container' style={{background:`url(${this.props.bot.BotImage}) left top no-repeat`,backgroundSize:'cover'}}>
                 {/*<img className="bot-image" src={ this.props.bot.botImage } alt="" />*/}
               </Col>
               <Col span={1}/>

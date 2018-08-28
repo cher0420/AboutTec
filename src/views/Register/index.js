@@ -63,7 +63,7 @@ class Register extends Component {
 
   // 组件销毁前移除事件监听
   componentWillUnmount(){
-    emitter.emit("setNarBackground", 'none');
+    // emitter.emit("setNarBackground", 'none');
     emitter.removeAllListeners('setStatus');
     emitter.removeAllListeners('setCurrent');
     emitter.removeAllListeners('setCompanyInfo');
