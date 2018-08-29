@@ -17,7 +17,7 @@ class HotDomain extends Component {
     const options = {
       headers: {'Content-Type': 'application/json; charset=utf-8'},
     };
-    fetch(URL.getManageBaseUrl + "api/BotDomain/GetUsableDomainList", options)
+    fetch(URL.getManageBaseUrl + "api/Market/GetCommonDomains", options)
       .then(response => response.json())
       .then((res) => {
           this.setState({ hotFields: res.BotDomain });
