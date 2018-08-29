@@ -35,7 +35,7 @@ class Navbar extends Component {
     let navbarRight = null;
     if (!isLogin) {
       navbarRight =
-        <div className="navbar-right">
+        <div className="navbar-right" style={{display:'none'}}>
           <Link to="/register">
             <div className="navbar-blue-button navbar-box">注 册</div>
           </Link>
