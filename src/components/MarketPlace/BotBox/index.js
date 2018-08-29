@@ -135,7 +135,11 @@ class BotBox extends Component {
                 </div>
                 <div className="bottom">
                   <button className="bot-options-button" onClick={ this.experience }>立即体验</button>
+<<<<<<< Updated upstream
                   <Link to={ "/botdetail/" + this.props.bot.id } className="bot-detail-link">查看详情</Link>
+=======
+                  <Link to={ "/botdetail/" + this.props.bot.ID } className="bot-detail-link">查看详情</Link>
+>>>>>>> Stashed changes
                   <Button style={{display:'none'}} className="bot-options-button" onClick={ this.buy } loading={this.state.loading}>免费试用</Button>
                 </div>
               </Col>

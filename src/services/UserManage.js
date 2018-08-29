@@ -96,7 +96,7 @@ export const fetchUserInfo = (token = null) => {
 }
 
 /**
- * Set setUserInfo
+ * setUserInfo
  * @param value
  * @returns {*}
  */
