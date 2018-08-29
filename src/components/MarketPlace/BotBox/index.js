@@ -26,9 +26,10 @@ class BotBox extends Component {
   getResData = () => {
     const user = this.getUser();
     const data = {};
-    data.botId = this.props.bot.id;
-    data.userId = user.user.UserId;
-    data.tenantId = user.user.TenantId;
+    data.BotId = this.props.bot.ID;
+    data.UserId = user.user.UserId;
+    data.TenantId = user.user.TenantId;
+    data.DomainId = this.props.bot.DID
     return data;
   };
 
@@ -38,13 +39,13 @@ class BotBox extends Component {
     detail.TenantId = user.user.TenantId;
     detail.OrderNo = orderId;
     detail.BotNo = bot.botNo;
-    detail.BotTemplateCode = bot.templateCode;
-    detail.BotTemplateName = bot.botName;
-    detail.BotType = bot.botType;
-    detail.DeployModel = bot.deployModel;
-    detail.BotTemplateDomain = bot.domainName;
-    detail.BotTemplateDescription = bot.description;
-    detail.IsAutoCreate = bot.isAutoCreate;
+      detail.BotTemplateCode = bot.TemplateCode;
+      detail.BotTemplateName = bot.BotName;
+      detail.BotType = bot.BotType;
+      detail.DeployModel = bot.DeployModel;
+      detail.BotTemplateDomain = bot.DomainName;
+      detail.BotTemplateDescription = bot.Description;
+      detail.IsAutoCreate = bot.IsAutoCreate;
     detail.ServicePlan = "";
     return detail;
   };
@@ -55,20 +56,17 @@ class BotBox extends Component {
       okText: '关闭',
       content: (
         <div className="experience-content">
-          <img src={ this.props.bot.botQRCode } alt="" />
+          <img src={ this.props.bot.BotQRCode } alt="" />
         </div>
       ),
     });
   };
-  // fetchLogin = (v) =>{
-  //     window.location.replace('/login');
-  // }
   buy = (e) => {
     if (!this.getUser()) {
       return;
     }
     this.setState({loading: true});
-    fetch(URL.getManageBaseUrl + "order/bot", {
+    fetch(URL.getManageBaseUrl + "api/Order/GetOrderOneBot", {
       method: 'POST',
       headers: {
         "Content-Type": "application/json; charset=UTF-8"
@@ -76,6 +74,7 @@ class BotBox extends Component {
       body: JSON.stringify(this.getResData())
     }).then(response => response.json())
       .then((res) => {
+        console.log(res)
         this.submitBill(res);
       });
   };
@@ -86,11 +85,11 @@ class BotBox extends Component {
     const OrderInfo = {};
     data.Account = user.user.Email;
     OrderInfo.TenantId = user.user.TenantId;
-    OrderInfo.OrderNo = cartInfo.orderId;
+    OrderInfo.OrderNo = cartInfo.OrderId;
     data.OrderInfo = OrderInfo;
     data.Details = [];
-    cartInfo.bot.botNo = cartInfo.botNo;
-    data.Details.push(this.getDetail(cartInfo.bot, cartInfo.orderId));
+    cartInfo.Bot.botNo = cartInfo.BotNo;
+    data.Details.push(this.getDetail(cartInfo.Bot, cartInfo.OrderId));
     const options = {
       method: 'POST',
       headers: {
@@ -124,23 +123,28 @@ class BotBox extends Component {
   render() {
         return(
             <Row className="market-bot">
-              <Col span = {8} md={8} xs={ 24 } className='bot-image-container' style={{background:`url(${this.props.bot.botImage}) left top no-repeat`,backgroundSize:'cover'}}>
+              <Col span = {8} md={8} xs={ 24 } className='bot-image-container' style={{background:`url(${this.props.bot.BotImage}) left top no-repeat`,backgroundSize:'cover'}}>
                 {/*<img className="bot-image" src={ this.props.bot.botImage } alt="" />*/}
               </Col>
               <Col span={1}/>
               <Col span = {12} xl={12} md={ 14 } xs={ 24 } className="bot-content">
                 <div className="top">
-                  <h2>{ this.props.bot.botName }</h2>
-                  <p>{ this.props.bot.description }</p>
+                  <h2>{ this.props.bot.BotName }</h2>
+                  <p>{ this.props.bot.Description }</p>
                 </div>
                 <div className="bottom">
                   <button className="bot-options-button" onClick={ this.experience }>立即体验</button>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                   <Link to={ "/botdetail/" + this.props.bot.id } className="bot-detail-link">查看详情</Link>
 =======
                   <Link to={ "/botdetail/" + this.props.bot.ID } className="bot-detail-link">查看详情</Link>
 >>>>>>> Stashed changes
                   <Button style={{display:'none'}} className="bot-options-button" onClick={ this.buy } loading={this.state.loading}>免费试用</Button>
+=======
+                  <Link to={ "/botdetail/" + this.props.bot.ID } className="bot-detail-link">查看详情</Link>
+                  <Button className="bot-options-button" onClick={ this.buy } loading={this.state.loading}>免费试用</Button>
+>>>>>>> develop
                 </div>
               </Col>
             </Row>

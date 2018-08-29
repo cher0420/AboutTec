@@ -24,5 +24,9 @@
     letter-spacing: 1px;
     margin-bottom: 0;
     padding: 5px 25px;
+    text-align:center;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 

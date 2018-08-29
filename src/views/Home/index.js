@@ -7,6 +7,7 @@ import Introduce from '../../components/Home/Introduce';
 import HotDomain from '../../components/Home/HotDomain';
 import FooterQR from '../../components/FooterQR';
 import PageDown from '../../components/PageDown';
+import emitter from "../../services/events";
 
 var keys = [37, 38, 39, 40];
 function preventDefault(e) {
@@ -38,6 +39,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
+      emitter.emit("setNarBackground", 'none');
     var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     this.setState({ current: scrollTop / window.innerHeight });
     window.addEventListener('wheel', this.handleScroll);

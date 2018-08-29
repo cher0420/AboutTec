@@ -26,7 +26,7 @@ class AppRouter extends Component {
         <Route exact path="/expect" component={ ExpectView }></Route>
         <Route exact path="/partner" component={ Partner }></Route>
         <Route exact path="/about/:id" component={ ArticleContent }></Route>
-        <Route render={() => <Redirect to="/404" />} />
+        <Route render={() => <Redirect to="/" />}/>
       </Switch>
     )
   }

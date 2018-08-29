@@ -55,10 +55,14 @@ const PRO_URL_HK = {
     getAdminPortalWebUrl:"https://portal.hightalk.ai",//Admin Portal web
 }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 export default PRO_URL_HK
 =======
 export default PRO_URL_CN
 >>>>>>> Stashed changes
+=======
+export default TEST_URL_CN
+>>>>>>> develop
 
 

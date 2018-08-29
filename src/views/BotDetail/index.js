@@ -8,6 +8,9 @@ import { Button, Modal } from 'antd';
 import FooterQR from '../../components/FooterQR';
 import emitter from '../../services/events';
 import './index.css';
+import '../../style/quill.bubble.css'
+import '../../style/quill.core.css'
+import '../../style/quill.snow.css'
 
 class BotDetail extends Component {
 
@@ -25,11 +28,11 @@ class BotDetail extends Component {
       headers: {'Content-Type': 'application/json; charset=utf-8'},
     };
     const contentId = this.props.match.params.id;
-    fetch(URL.getManageBaseUrl + "/bot?id=" + contentId, options)
+    fetch(URL.getManageBaseUrl + "api/BotInfo/GetBot?id=" + contentId, options)
       .then(response => response.json())
       .then((res) => {
         this.setState({
-          bot: res
+          bot: res.BotInfo
         });
       });
   }
@@ -143,29 +146,39 @@ class BotDetail extends Component {
       okText: '关闭',
       content: (
         <div className="experience-content">
-          <img src={ this.state.bot.botQRCode } alt=""/>
+          <img src={ this.state.bot.BotQRCode } alt=""/>
         </div>
       ),
     });
   };
-
-  componentWillUnmount() {
-    emitter.emit("setNarBackground", 'none');
-  }
+    htmlDecodeByRegExp =  (str = null) => {
+        let s = ''
+        if (str.length === 0) return ''
+        s = str.replace(/&amp;/g, '&')
+        s = s.replace(/&lt;/g, '<')
+        s = s.replace(/&gt;/g, '>')
+        s = s.replace(/&nbsp;/g, ' ')
+        s = s.replace(/&#39;/g, "\'")
+        s = s.replace(/&quot;/g, '"')
+        return s
+    }
+  // componentWillUnmount() {
+  //   emitter.emit("setNarBackground", 'none');
+  // }
 
   render() {
-    const image = this.state.bot && <img src={ this.state.bot.botImage } alt=""/>;
+    const image = this.state.bot && <img src={ this.state.bot.BotImage } alt=""/>;
 
     return(
       <main>
-        <div className="bot-detail">
+        <div className="bot-detail ql-editor">
           <div className="bot-detail-title">
             { image }
-            <h3>{ this.state.bot.botName }</h3>
+            <h3>{ this.state.bot.BotName }</h3>
             {/*<Button className="cart-button" onClick={ this.addToCart } >加入购物车</Button>*/}
             <Button type="primary" className="buy-button" onClick={ this.experience }>立即体验</Button>
           </div>
-          <div dangerouslySetInnerHTML={{__html:this.state.bot.botDetail}} className="bot-detail-content"></div>
+          <div dangerouslySetInnerHTML={{__html:this.htmlDecodeByRegExp(this.state.bot.BotDetail||[])}} className="bot-detail-content"></div>
         </div>
         <FooterQR/>
       </main>

@@ -16,16 +16,12 @@ class MarketPlace extends Component {
   }
 
   componentDidMount() {
+      emitter.emit("setNarBackground", 'none');
     window.scrollTo(0, 0);
     this.setField = emitter.addListener('setField', (field) => {
       this.setState({ field: field });
-        console.log(this.state.field)
     });
   }
-
-  // componentWillUnmount(){
-    // emitter.removeAllListeners('setField');
-  // }
 
   render() {
     const botBoxs = [];

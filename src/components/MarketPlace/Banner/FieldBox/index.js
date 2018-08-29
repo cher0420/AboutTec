@@ -8,8 +8,8 @@ class FieldBox extends Component {
   render() {
     return(
       <main className="field-box-content">
-        <img src={ this.props.field.domainIcon } alt="" />
-        <p>{ this.props.field.domainName }</p>
+        <img src={ this.props.field.DomainIcon } alt="" />
+        <p>{ this.props.field.DomainName }</p>
       </main>
     )
   }

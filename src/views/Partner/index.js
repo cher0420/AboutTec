@@ -11,10 +11,10 @@ class Partner extends Component {
   componentDidMount() {
     emitter.emit("setNarBackground", '#0e2052');
   }
-
-  componentWillUnmount(){
-    emitter.emit("setNarBackground", 'none');
-  }
+  //
+  // componentWillUnmount(){
+  //   emitter.emit("setNarBackground", 'none');
+  // }
 
   render() {
     const blobUrl = URL.getBlobUrl;

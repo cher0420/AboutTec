@@ -35,11 +35,15 @@ class Navbar extends Component {
     let navbarRight = null;
     if (!isLogin) {
       navbarRight =
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         <div className="navbar-right" style={{display: 'none'}}>
 =======
         <div className="navbar-right" style={{display:'none'}}>
 >>>>>>> Stashed changes
+=======
+        <div className="navbar-right">
+>>>>>>> develop
           <Link to="/register">
             <div className="navbar-blue-button navbar-box">注 册</div>
           </Link>
