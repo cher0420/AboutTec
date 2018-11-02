@@ -54,6 +54,6 @@ const PRO_URL_HK = {
     getAdminProtalBaseUrl:"https://api-admin.hightalk.ai",//Admin Portal restAPI
     getAdminPortalWebUrl:"https://portal.hightalk.ai",//Admin Portal web
 }
-export default TEST_URL_CN 
+export default DEV_URL
 
 
